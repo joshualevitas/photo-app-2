@@ -1,0 +1,71 @@
+#rec-panel {
+    display: flex;
+    width: 20%;
+    border: 1px solid black;
+    padding: 3px;
+}
+
+#prof {
+    display: flex;
+    font-family: 'Source Sans Pro';font-size: 22px;
+
+}
+
+.profile-pic {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro';font-size: 22px;
+}
+
+header{
+    position:fixed;
+    width:100%;
+    background-color: white;
+}
+
+nav{
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+nav h1{
+    margin-left: 15px;
+    padding:10px;
+
+}
+
+nav ul {
+
+    list-style-type: None;
+    display:flex;
+    padding: 10px;
+    margin: 35px;
+    font-size: smaller;
+    margin
+
+}
+
+li{
+    margin:7px;
+}
+
+#signout{
+    color: rgb(23, 175, 235);
+}
+
+a:link {
+    text-decoration: none;
+}
