@@ -3,6 +3,7 @@
     width: 20%;
     border: 1px solid black;
     padding: 3px;
+
 }
 
 #prof {
@@ -83,6 +84,8 @@ a:link {
     background-color: white;
     display: flex;
     justify-content: flex-start;
+    top: 100;
+    margin-top:80px;
 
 }
 
