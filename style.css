@@ -117,21 +117,32 @@ a:link {
     text-decoration: none;
 }
 
+
 #stories-panel{
 
-    background-color: white;
-    display: flex;
-    justify-content: flex-start;
-    top: 100;
-    margin-top:80px;
-
-}
-
-.story-pic{
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-}
+        background-color: white;
+        display: flex;
+        justify-content: flex-start;
+        top: 100;
+        margin-top:80px;
+    
+    }
+    
+    .story{
+        display:flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        padding: 15px;
+    }
+    
+    .story-pic{
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        border: 2px solid rgb(204, 204, 204);
+    }
+    
 
 
 
