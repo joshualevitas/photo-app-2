@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     width: 20%;
-    border: 1px solid red;
     padding: 3px;
     min-height: 350px;
     padding: 1%;
+
+
+    border: 1px solid red;
 
 }
 
@@ -14,6 +16,8 @@
     align-items: center;
     justify-content: space-evenly;
     font-family: 'Source Sans Pro';font-size: 22px;
+    
+    
     border: 1px dotted red;
 
 }
@@ -133,7 +137,7 @@ a:link {
 
 /* cards */
 #post-card {
-    border: solid 1px green;
+    /* border: solid 1px green; */
 
     background-color: white;
     width: 600px;
@@ -168,8 +172,9 @@ a:link {
 
 
 #comment-section {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 .comment {
@@ -180,5 +185,27 @@ a:link {
 
 #comment-section p {
     margin: 0px;
+}
+
+#add-comment-section {
+    
+    border-top: solid .5px gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.comment-section-right {
+    margin-right: 10px;
+}
+
+.comment-section-left {
+    /* border: dotted 1px blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
 }
 
