@@ -8,52 +8,44 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <script src="https://kit.fontawesome.com/99a22e143d.js" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
+
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet">
     </head>
 
     <body>
-        <div id="nav-section">
-            <header id="header">
-                <nav id="navbar">
-                        <h1>Photo App</h1>
         
-                        <ul>
-                            <li>username</li>
-                            <li><a href="#signout"  id="signout" >Sign out</a></li>
-                        </ul>
-                                    
-                </nav>
-            </header>
-        </div>
+        {% include 'includes/navbar.html' %}
+
         
         <div id="main-content">
 
             <div id="stories-panel">
                 <div class="story">
-                    <img src="https://i.guim.co.uk/img/media/86302dbcc55f07d65c45bb3baf8c864e36bd4320/0_155_3600_2159/master/3600.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=df936fc2e7b2b84a58f2e293ecde27de" class="story-pic" alt="story-pic">
+                    <img src="https://i.guim.co.uk/img/media/86302dbcc55f07d65c45bb3baf8c864e36bd4320/0_155_3600_2159/master/3600.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=df936fc2e7b2b84a58f2e293ecde27de" class="story-pic">
                     <p style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px">mjordan</p>
 
                 </div>
                 <div class="story">
-                    <img src="https://www.biography.com/.image/t_share/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg" class="story-pic" alt="story-pic">
+                    <img src="https://www.biography.com/.image/t_share/MTE4MDAzNDEwNzg5ODI4MTEw/barack-obama-12782369-1-402.jpg" class="story-pic">
                     <p style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px; text-align: center;">bobama</p>
                 </div>
 
                 <div class="story">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzcMoUAIyfuNQnfgTs8qZAp1HB-3mUZYYCoA&usqp=CAU" class="story-pic"alt="story-pic">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzcMoUAIyfuNQnfgTs8qZAp1HB-3mUZYYCoA&usqp=CAU" class="story-pic">
                     <p style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px; text-align: center;" >snoopy</p>
                     
                 </div>
 
                 <div class="story">
-                    <img src="https://picsum.photos/750/400" class="story-pic" alt="story-pic">
+                    <img src="https://picsum.photos/750/400" class="story-pic">
                     <p style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px ; text-align: center;">spongeb</p>
                     
                 </div>
 
                 <div class="story">
-                    <img src="https://picsum.photos/750/400" class="story-pic" alt="story-pic">
+                    <img src="https://picsum.photos/750/400" class="story-pic">
                     <p style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px; text-align: center;">hgranger</p>
                     
                 </div>
@@ -62,15 +54,14 @@
 
 
 
-            <div class="post-card">
+            <div id="post-card">
                 <div id="top-bar">
-                    <p style="font-size: 20px;"><strong>joebiden</strong></p>
+                    <p style="font-size: 20px;"><strong>placeholder name</strong></p>
                     <i class="fa-solid fa-ellipsis"></i>
                 </div>
                 <div class="post-photo">
                     <img src="https://picsum.photos/750/400"
-                        width = "100%"
-                        alt = 'post image'>
+                        width = "100%">
                 </div>
 
                 <div class="post-icons">
@@ -91,16 +82,16 @@
 
                 <div id="comment-section">
                     <div class="comment">
-                        <p><strong>joebiden</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading... <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
+                        <p><strong>poster's name</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading!</p>
                     </div>
 
                     <div class="comment">
-                        <p><strong>bobama</strong> this is a great picture. thanks for sharing!</p>
+                        <p><strong>poster's friend</strong> this is a great picture. thanks for sharing!</p>
                     </div>
 
 
                     <div class="comment">
-                        <p><strong>berniesanders</strong> where to buy kitchen stand mixer google</p>
+                        <p><strong>poster's grandpa</strong> where to buy kitchen stand mixer google</p>
                     </div>
 
                     <div id="day-ago">
@@ -125,194 +116,6 @@
 
             </div>
 
-            <div class="post-card">
-                <div id="top-bar">
-                    <p style="font-size: 20px;"><strong>joebiden</strong></p>
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
-                <div class="post-photo">
-                    <img src="https://picsum.photos/750/400"
-                        width = "100%"
-                        alt = 'post image'>
-                </div>
-
-                <div class="post-icons">
-                    <div id="left-post-icons">
-                        <i class="fa-regular fa-heart" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-comment" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div id="right-post-icons">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-
-                </div>
-
-                <div class="post-info"> 
-                    <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>30 likes</strong></p>
-                </div>  
-
-                <div id="comment-section">
-                    <div class="comment">
-                        <p><strong>joebiden</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading... <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
-                    </div>
-
-                    <div class="comment">
-                        <p><strong>bobama</strong> this is a great picture. thanks for sharing!</p>
-                    </div>
-
-
-                    <div class="comment">
-                        <p><strong>berniesanders</strong> where to buy kitchen stand mixer google</p>
-                    </div>
-
-                    <div id="day-ago">
-                        <p style="color: gray; font-size: 13px;" >1 DAY AGO</p>
-                    </div>
-
-
-                </div>
-
-                <div id="add-comment-section">
-                    <div class="comment-section-left">
-                        <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
-                        <p style="color: gray; font-size: 15px;">Add a comment...</p>
-                    </div>
-
-                    <div class="comment-section-right">
-                        <a href="" style="color: rgb(23, 175, 235); font-size: 15px"">Post</a>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-            <div class="post-card">
-                <div id="top-bar">
-                    <p style="font-size: 20px;"><strong>joebiden</strong></p>
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
-                <div class="post-photo">
-                    <img src="https://picsum.photos/750/400"
-                        width = "100%"
-                        alt = 'post image'>
-                </div>
-
-                <div class="post-icons">
-                    <div id="left-post-icons">
-                        <i class="fa-regular fa-heart" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-comment" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div id="right-post-icons">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-
-                </div>
-
-                <div class="post-info"> 
-                    <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>30 likes</strong></p>
-                </div>  
-
-                <div id="comment-section">
-                    <div class="comment">
-                        <p><strong>joebiden</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading... <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
-                    </div>
-
-                    <div class="comment">
-                        <p><strong>bobama</strong> this is a great picture. thanks for sharing!</p>
-                    </div>
-
-
-                    <div class="comment">
-                        <p><strong>berniesanders</strong> where to buy kitchen stand mixer google</p>
-                    </div>
-
-                    <div id="day-ago">
-                        <p style="color: gray; font-size: 13px;" >1 DAY AGO</p>
-                    </div>
-
-
-                </div>
-
-                <div id="add-comment-section">
-                    <div class="comment-section-left">
-                        <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
-                        <p style="color: gray; font-size: 15px;">Add a comment...</p>
-                    </div>
-
-                    <div class="comment-section-right">
-                        <a href="" style="color: rgb(23, 175, 235); font-size: 15px">Post</a>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-            <div class="post-card">
-                <div id="top-bar">
-                    <p style="font-size: 20px;"><strong>joebiden</strong></p>
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
-                <div class="post-photo">
-                    <img src="https://picsum.photos/750/400"
-                        width = "100%"
-                        alt = 'post image'>
-                </div>
-
-                <div class="post-icons">
-                    <div id="left-post-icons">
-                        <i class="fa-regular fa-heart" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-comment" style="padding: 0px 5px 0px 0px"></i>
-                        <i class="fa-regular fa-paper-plane"></i>
-                    </div>
-                    <div id="right-post-icons">
-                        <i class="fa-regular fa-bookmark"></i>
-                    </div>
-
-                </div>
-
-                <div class="post-info"> 
-                    <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>30 likes</strong></p>
-                </div>  
-
-                <div id="comment-section">
-                    <div class="comment">
-                        <p><strong>joebiden</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading... <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
-                    </div>
-
-                    <div class="comment">
-                        <p><strong>bobama</strong> this is a great picture. thanks for sharing!</p>
-                    </div>
-
-
-                    <div class="comment">
-                        <p><strong>berniesanders</strong> where to buy kitchen stand mixer google</p>
-                    </div>
-
-                    <div id="day-ago">
-                        <p style="color: gray; font-size: 13px;" >1 DAY AGO</p>
-                    </div>
-
-
-                </div>
-
-                <div id="add-comment-section">
-                    <div class="comment-section-left">
-                        <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
-                        <p style="color: gray; font-size: 15px;">Add a comment...</p>
-                    </div>
-
-                    <div class="comment-section-right">
-                        <a href="" style="color: rgb(23, 175, 235); font-size: 15px"">Post</a>
-                    </div>
-
-                </div>
-
-
-            </div>
 
 
         </div>
@@ -320,7 +123,7 @@
         <div id="rec-panel">
             <div id="prof">
                 <img src="https://picsum.photos/100/100" class="profile-pic">
-                <p class="profile_text" style="font-size: 27px"><strong>joebiden</strong></p>
+                <p class="profile_text" style="font-size: 27px"><strong>placeholder</strong></p>
             </div>
 
             <div id="suggestions">
@@ -329,7 +132,7 @@
                 <div class="suggestion-item">
                     <img src="https://picsum.photos/100/100" class="small-profile-pic">
                     <div>
-                        <p style="font-size: 20px">paulrudd</p>
+                        <p style="font-size: 20px">placeholder_name</p>
                         <p style="color: gray; font-size: 15px">suggested for you</p>
                     </div >
                     <div class="follow">
@@ -340,7 +143,7 @@
                 <div class="suggestion-item">
                     <img src="https://picsum.photos/100/100" class="small-profile-pic">
                     <div>
-                        <p style="font-size: 20px">tomhanks</p>
+                        <p style="font-size: 20px">placeholder_name</p>
                         <p style="color: gray; font-size: 15px">suggested for you</p>
                     </div>
                     <div class="follow">
@@ -351,7 +154,7 @@
                 <div class="suggestion-item">
                     <img src="https://picsum.photos/100/100" class="small-profile-pic">
                     <div>
-                        <p style="font-size: 20px">larrydavid</p>
+                        <p style="font-size: 20px">placeholder_name</p>
                         <p style="color: gray; font-size: 15px">suggested for you</p>
                     </div>
                     <div class="follow">
@@ -362,7 +165,7 @@
                 <div class="suggestion-item">
                     <img src="https://picsum.photos/100/100" class="small-profile-pic">
                     <div>
-                        <p style="font-size: 20px">jseinfeld</p>
+                        <p style="font-size: 20px">placeholder_name</p>
                         <p style="color: gray; font-size: 15px">suggested for you</p>
                     </div>
                     <div class="follow">
@@ -373,7 +176,7 @@
                 <div class="suggestion-item">
                     <img src="https://picsum.photos/100/100" class="small-profile-pic">
                     <div>
-                        <p style="font-size: 20px">gcostanza</p>
+                        <p style="font-size: 20px">placeholder_name</p>
                         <p style="color: gray; font-size: 15px">suggested for you</p>
                     </div>
                     <div class="follow">
@@ -398,13 +201,6 @@
 
 
 
-<!-- We would add a feature, so when users post their image they 
-    could add alt text easily. To do this, we would have to add an 
-    advanced setting that users could turn on when they are deciding 
-    to post a phoot so users can edit an alt text on their posts.
-    This advanced setting would be an option when uploading a photo to post.
-    Once the photo is posted, this alt text edit option would go 
-    to the bottom right of the user's photo and then once 
-    it is posted they can edit this alt text to make their photo 
-    more accessible. 
+<!-- To add alt text to our images, we would have to  
+
 -->
