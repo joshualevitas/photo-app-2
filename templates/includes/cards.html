@@ -1,0 +1,80 @@
+
+{% for post in posts %}
+
+<div class="post-card">
+    <div id="top-bar">
+        <p style="font-size: 20px;"><strong>{{ post.get('user').get('username') }}</strong></p>
+        <i class="fa-solid fa-ellipsis"></i>
+    </div>
+    <div class="post-photo">
+        <img src={{ post.get('image_url') }}
+            width = "100%"
+            alt = 'post image'>
+    </div>
+
+    <div class="post-icons">
+        <div id="left-post-icons">
+            <i class="fa-regular fa-heart" style="padding: 0px 5px 0px 0px"></i>
+            <i class="fa-regular fa-comment" style="padding: 0px 5px 0px 0px"></i>
+            <i class="fa-regular fa-paper-plane"></i>
+        </div>
+        <div id="right-post-icons">
+            <i class="fa-regular fa-bookmark"></i>
+        </div>
+
+    </div>
+
+    <div class="post-info"> 
+        <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>30 likes</strong></p>
+    </div>  
+
+    <div id="comment-section">
+        
+        <div class="comment">
+            <p><strong>{{ post.get('user').get('username') }}</strong> this is my caption to this picture! I loved taking this picture. There's a thing in it, or at least it's of something. thanks for reading... <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
+        </div>
+
+        {% if post.comments|length > 1 %}
+        <p><a href="" style="font-size: 15px; color: rgb(23,175,235); margin-left: 10px; padding: 1px;"">View all {{ post.comments|length }} comments</a></p>
+
+
+        <div class="comment">
+            <p><strong>{{ post.comments[0].user.get('username')}}</strong> {{ post.comments[0].text }}  </p>
+        </div>
+        
+
+        
+
+        {% else %}
+        <div class="comment">
+            <p><strong>{{ post.comments[0].user.get('username')}}</strong> this is a great picture. thanks for sharing!</p>
+        </div>
+
+        {% endif %}
+
+       
+
+        <div id="day-ago">
+            <p style="color: gray; font-size: 13px;" >1 DAY AGO</p>
+        </div>
+
+
+    </div>
+
+    <div id="add-comment-section">
+        <div class="comment-section-left">
+            <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
+            <p style="color: gray; font-size: 15px;">Add a comment...</p>
+        </div>
+
+        <div class="comment-section-right">
+            <a href="" style="color: rgb(23, 175, 235); font-size: 15px"">Post</a>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endfor %}
+
