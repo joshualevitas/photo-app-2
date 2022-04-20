@@ -70,7 +70,7 @@
     justify-content: flex-start;
     padding: 12px;
     font-family: Arial, Helvetica, sans-serif;
-    /* border: dotted 1px rgb(233, 15, 15); */
+    border: dotted 1px rgb(233, 15, 15);
 }
 
 .suggestion-item p {
@@ -80,6 +80,14 @@
 .follow{
     margin-top: 17px;
     margin-left: 10px;
+}
+
+.right-sugg {
+    display: flex;
+    justify-items: space-between;
+    
+    border: 1px red dotted;
+    
 }
 
 
@@ -272,8 +280,12 @@ a:link {
 }
 
 
-.stories {
-    overflow: scroll;
+.story {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+ 
 } 
 
 
