@@ -3,7 +3,7 @@
 {% for story in stories %}
 
     <div class="story">
-        <img src={{story['user'].get('profile_url')}} class="story-pic" alt="story-pic">
+        <img src= "{{story['user'].get('profile_url')}}" class="story-pic" alt="story-pic">
         <p id = "story-text" style="font-family: Arial, Helvetica, sans-serif; color: gray; font-size: 15px">{{ story['user'].get('username') }}</p>
 
     </div>
