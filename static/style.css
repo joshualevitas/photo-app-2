@@ -176,10 +176,27 @@ a:link {
     .story{
         display:flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: center; 
         align-content: center;
         padding: 15px;
+        flex-basis: 60px;
+        flex-grow: 0;
+        flex-shrink:0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+
     }
+
+    #story-text{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+
+
     
     .story-pic{
         height: 50px;
@@ -277,13 +294,7 @@ a:link {
 }
 
 
-.story {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 
- 
-} 
 
 
 @media screen and (max-width: 768px) {
