@@ -1,16 +1,16 @@
 <div id="rec-panel">
     <div id="prof">
-        <img src="https://picsum.photos/100/100" class="profile-pic">
-        <p class="profile_text" style="font-size: 27px"><strong>joebiden</strong></p>
+        <img src={{ user.get('profile_url') }} class="profile-pic">
+        <p class="profile_text" style="font-size: 27px"><strong>{{user.get('username')}}</strong></p>
     </div>
 
     <div id="suggestions">
         <p id="suggestions-title">Suggestions for you</p>
         <!-- put suggestions here in div with common class -->
         <div class="suggestion-item">
-            <img src="https://picsum.photos/100/100" class="small-profile-pic">
+            <img src={{ suggestions[0].get('profile_url') }} class="small-profile-pic">
             <div>
-                <p style="font-size: 20px">paulrudd</p>
+                <p style="font-size: 20px">{{ suggestions[0].get('username') }}</p>
                 <p style="color: gray; font-size: 15px">suggested for you</p>
             </div >
             <div class="follow">
@@ -19,9 +19,9 @@
         </div>
 
         <div class="suggestion-item">
-            <img src="https://picsum.photos/100/100" class="small-profile-pic">
+            <img src={{ suggestions[1].get('profile_url') }} class="small-profile-pic">
             <div>
-                <p style="font-size: 20px">tomhanks</p>
+                <p style="font-size: 20px">{{ suggestions[1].get('username') }}</p>
                 <p style="color: gray; font-size: 15px">suggested for you</p>
             </div>
             <div class="follow">
@@ -30,9 +30,9 @@
         </div>
 
         <div class="suggestion-item">
-            <img src="https://picsum.photos/100/100" class="small-profile-pic">
+            <img src={{ suggestions[2].get('profile_url') }} class="small-profile-pic">
             <div>
-                <p style="font-size: 20px">larrydavid</p>
+                <p style="font-size: 20px">{{ suggestions[2].get('username') }}</p>
                 <p style="color: gray; font-size: 15px">suggested for you</p>
             </div>
             <div class="follow">
@@ -41,9 +41,9 @@
         </div>
 
         <div class="suggestion-item">
-            <img src="https://picsum.photos/100/100" class="small-profile-pic">
+            <img src={{ suggestions[3].get('profile_url') }} class="small-profile-pic">
             <div>
-                <p style="font-size: 20px">jseinfeld</p>
+                <p style="font-size: 20px">{{ suggestions[3].get('username') }}</p>
                 <p style="color: gray; font-size: 15px">suggested for you</p>
             </div>
             <div class="follow">
@@ -52,9 +52,9 @@
         </div>
 
         <div class="suggestion-item">
-            <img src="https://picsum.photos/100/100" class="small-profile-pic">
+            <img src= {{ suggestions[4].get('profile_url') }} class="small-profile-pic">
             <div>
-                <p style="font-size: 20px">gcostanza</p>
+                <p style="font-size: 20px">{{ suggestions[4].get('username') }}</p>
                 <p style="color: gray; font-size: 15px">suggested for you</p>
             </div>
             <div class="follow">
