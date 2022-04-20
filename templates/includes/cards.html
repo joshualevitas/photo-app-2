@@ -39,7 +39,7 @@
 
 
         <div class="comment">
-            <p><strong>{{ post.comments[0].user.get('username')}}</strong> {{ post.comments[0].text }}  </p>
+            <p><strong>{{ post.comments[0].user.get('username')}}</strong> {{ post['comments'][0]['text'] }}  </p>
         </div>
         
 
@@ -47,7 +47,7 @@
 
         {% else %}
         <div class="comment">
-            <p><strong>{{ post.comments[0].user.get('username')}}</strong> this is a great picture. thanks for sharing!</p>
+            <p><strong>{{ post.comments[0].user.get('username')}}</strong> {{ post['comments'][0]['text'] }}</p>
         </div>
 
         {% endif %}
