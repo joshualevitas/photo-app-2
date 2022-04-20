@@ -9,7 +9,7 @@
     <div class="post-photo">
         <img src= "{{ post.get('image_url') }}"
             width = "100%"
-            alt = 'post image'>
+            alt = " post for {{ post.get('user').get('username') }}">
     </div>
 
     <div class="post-icons">
@@ -31,17 +31,18 @@
     <div id="comment-section">
         
         <div class="comment">
-            <p><strong>{{ post.get('user').get('username') }}</strong> {{ post.get('title') }}..<a href ='' style="color: rgb(23, 175, 235);"> more</a></p>
+            <p><strong>{{ post.get('user').get('username') }}</strong> {{ post.get('title') }}..<a href ='' style="color: rgb(40, 143, 184);"> more</a></p>
         </div>
 
         {% if post.comments|length > 1 %}
-        <p><a href="" style="font-size: 15px; color: rgb(23,175,235); margin-left: 10px; padding: 1px;">View all {{ post.comments|length }} comments</a></p>
+        <p><a href="" style="font-size: 15px; color: rgb(40, 143, 184); margin-left: 10px; padding: 1px;">View all {{ post.comments|length }} comments</a></p>
 
 
         <div class="comment">
             <p><strong>{{ post['comments'][0]['user'].get('username')}}</strong> {{ post['comments'][0]['text'] }}  </p>
         </div>
         
+        {% elif post.comments|length == 0 %}
 
         {% elif post.comments|length == 0 %}
 
@@ -78,5 +79,5 @@
 
 </div>
 
-{% endfor %}
 
+{% endfor %}
