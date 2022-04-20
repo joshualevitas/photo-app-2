@@ -31,11 +31,11 @@
     <div id="comment-section">
         
         <div class="comment">
-            <p><strong>{{ post.get('user').get('username') }}</strong> {{ post.get('title') }}..<a href ='' style="color: rgb(40, 143, 184);"> more</a></p>
+            <p><strong>{{ post.get('user').get('username') }}</strong> {{ post.get('title') }}..<a href ='' style="color: rgb(10, 111, 151);"> more</a></p>
         </div>
 
         {% if post.comments|length > 1 %}
-        <p><a href="" style="font-size: 15px; color: rgb(40, 143, 184); margin-left: 10px; padding: 1px;">View all {{ post.comments|length }} comments</a></p>
+        <p><a href="" style="font-size: 15px; color: rgb(10, 111, 151); margin-left: 10px; padding: 1px;">View all {{ post.comments|length }} comments</a></p>
 
 
         <div class="comment">
@@ -55,7 +55,7 @@
        
 
         <div id="day-ago">
-            <p style="color: gray; font-size: 13px;" >{{ post.get('display_time') }}</p> 
+            <p style="color: rgb(90, 90, 90); font-size: 13px;" >{{ post.get('display_time') }}</p> 
         </div>
 
 
@@ -64,11 +64,11 @@
     <div id="add-comment-section">
         <div class="comment-section-left">
             <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
-            <p style="color: gray; font-size: 15px;">Add a comment...</p>
+            <p style="color: rgb(90, 90, 90); font-size: 15px;">Add a comment...</p>
         </div>
 
         <div class="comment-section-right">
-            <a href="" style="color: rgb(23, 175, 235); font-size: 15px">Post</a>
+            <a href="" style="color: rgb(10, 111, 151); font-size: 15px">Post</a>
         </div>
 
     </div>
