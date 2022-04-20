@@ -10,18 +10,24 @@
         <p id="suggestions-title">Suggestions for you</p>
         <!-- put suggestions here in div with common class -->
         {% for sugg in suggestions %}
+        
         <div class="suggestion-item">
+
+            <div class="img_profile_text">
+
             <img src={{ sugg.get('profile_url') }} class="small-profile-pic">
             
-            <div class="right-sugg">
                 <div>
                     <p style="font-size: 20px">{{ sugg.get('username') }}</p>
                     <p style="color: gray; font-size: 15px">suggested for you</p>
                 </div >
+
+            </div>
+
                 <div class="follow">
                     <a href=""style="color: rgb(23, 175, 235); font-size: 15px">follow</a>
                 </div>
-            </div> 
+        
 
         </div>
 
