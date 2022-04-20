@@ -1,6 +1,6 @@
 <div id="rec-panel">
     <div id="prof">
-        <img src={{ user.get('profile_url') }} class="profile-pic">
+        <img src={{ user.get('profile_url') }} class="profile-pic" alt = "profile pic for {{user.get('username') }}">
         <p class="profile_text" style="font-size: 27px"><strong>{{user.get('username')}}</strong></p>
     </div>
 
@@ -19,13 +19,13 @@
             
                 <div>
                     <p style="font-size: 20px">{{ sugg.get('username') }}</p>
-                    <p style="color: gray; font-size: 15px">suggested for you</p>
+                    <p style="color: rgb(90, 90, 90); font-size: 15px">suggested for you</p>
                 </div >
 
             </div>
 
                 <div class="follow">
-                    <a href=""style=" color: rgb(40, 143, 184); font-size: 15px">follow</a>
+                    <a href=""style=" color: rgb(10, 111, 151); font-size: 15px">follow</a>
                 </div>
         
 
