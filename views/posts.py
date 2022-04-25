@@ -16,11 +16,7 @@ class PostListEndpoint(Resource):
     def get(self):
         # get posts created by one of these users:
         # print(get_authorized_user_ids(self.current_user))
-        posts = Post.query.limit(10).all()
-
-        print (posts)
-        posts_json = [post.to_dict() for post in posts]
-        return Response(json.dumps(posts_json), mimetype="application/json", status=200)
+        return Response(json.dumps([]), mimetype="application/json", status=200)
 
     def post(self):
         # create a new post based on the data posted in the body 
