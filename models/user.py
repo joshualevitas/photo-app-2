@@ -42,7 +42,7 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
-    def to_dict(self): 
+    def to_dict(self):  #this helps say what we are returning 
         return {
             'id': self.id,
             'first_name': self.first_name,
