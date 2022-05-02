@@ -66,13 +66,13 @@ class PostListEndpoint(Resource):
     def post(self):
         # create a new post based on the data posted in the body 
         body = request.get_json()
-        image_url = body.get("image_url")
+        image_url = body.get('image_url')
         
         if not image_url:
-            return Response(json.dumps({"image doesn't exist "}), status=400)
+            return Response(json.dumps({"image doesn't exist "}),  mimetype="application/json", status=400)
 
-        caption = body.get("caption") or ""
-        alt_text = body.get("alt_text)") or ""
+        caption = body.get('caption') or ""
+        alt_text = body.get('alt_text') or ""
 
         new_post = Post(image_url, self.current_user.id, caption, alt_text)
         db.session.add(new_post)
@@ -89,22 +89,24 @@ class PostDetailEndpoint(Resource):
     def patch(self, id):
         # update post based on the data posted in the body 
         body = request.get_json()
+        print(body)
 
         post = Post.query.get(id)
+
         if not post:
-            return Response(json.dumps({"id is invalid"}), status=401)
+            return Response(json.dumps({"id is invalid".format(id)}),  mimetype="application/json", status=401)
         
         if post.user_id != self.current_user.id:
-            return Response(json.dumps({"id is invalid"}), status=401)
+            return Response(json.dumps({"id is invalid".format(id)}), mimetype="application/json",  status=401)
 
-        if body.get("image_url"):
+        if body.get('caption'):
+            post.caption = body.get('caption')
+        
+        if body.get('alt_text'):
+            post.alt_text = body.get('alt_text')
+
+        if body.get('image_url'):
             post.image_url = body.get("image_url")
-
-        if body.get("alt_text)"):
-            post.alt_text = body.get("alt_text)")
-
-        if body.get("caption)"):
-            post.caption = body.get("caption")
 
         db.session.commit()    
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=201)
@@ -113,18 +115,18 @@ class PostDetailEndpoint(Resource):
     def delete(self, id):
        
         post = Post.query.get(id)
+        
         if not post:
-            return Response(json.dumps({"post doesn't exist"}), status=401)
+            return Response(json.dumps({'id is invalid'.format(id)}),  mimetype="application/json", status=401)
 
-        #you should only be able to edit/delete posts that are yours
+        # you should only be able to edit/delete posts that are yours
         if post.user_id != self.current_user.id:
-             return Response(json.dumps({"not allowed to edit this post"}), status=401)
-
+             return Response(json.dumps({'not allowed to edit this post'.format(id)}),  mimetype="application/json", status=401)
 
 
         Post.query.filter_by(id=id).delete() 
         db.session.commit()
-        return Response(json.dumps({"Post was deleted"}), mimetype="application/json", status=400)
+        # return Response(json.dumps({'post deleted'.format(id)}), mimetype="application/json", status=201)
 
 
     def get(self, id):    
