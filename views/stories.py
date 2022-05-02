@@ -10,6 +10,13 @@ class StoriesListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
+        user_ids = get_authorized_user_ids(self.current_user)
+
+        stories = Story.query.filter(Story.user_id.in_(user_ids))  #a list of post models getting returned 
+        
+        stories_json = [story.to_dict() for story in stories]
+        return Response(json.dumps(stories_json), mimetype="application/json", status=200)
+
         # get stories created by one of these users:
         # print(get_authorized_user_ids(self.current_user))
         return Response(json.dumps([]), mimetype="application/json", status=200)

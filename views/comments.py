@@ -37,15 +37,15 @@ class CommentDetailEndpoint(Resource):
         comment = Comment.query.get(id)
         
         if not comment:
-            return Response(json.dumps({'id is invalid'}.format(id)),  mimetype="application/json", status=400)
+            return Response(json.dumps({'id is invalid'}),  mimetype="application/json", status=400)
 
         # you should only be able to edit/delete posts that are yours
         if comment.user_id != self.current_user.id:
-             return Response(json.dumps({'not allowed to edit this post'.format(id)}),  mimetype="application/json", status=400)
+             return Response(json.dumps({'not allowed to edit this post'}),  mimetype="application/json", status=400)
 
         Comment.query.filter_by(id=id).delete() 
         db.session.commit()
-        return Response(json.dumps({'comment deleted'.format(id)}), mimetype="application/json", status=201)
+        return Response(json.dumps({'comment deleted'}), mimetype="application/json", status=201)
 
 
 def initialize_routes(api):

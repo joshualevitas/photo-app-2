@@ -11,8 +11,19 @@ class FollowingListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
+
+        followers = (
+            db.session
+                .query(Following.following_id)
+                .filter(Following.user_id == self.current_user.id)
+                .order_by(Following.following_id)
+                .all()
+         )
+
+        followers_json = [follower.to_dict() for follower in followers]
+
         # return all of the "following" records that the current user is following
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        return Response(json.dumps(followers_json), mimetype="application/json", status=200)
 
     def post(self):
         # create a new "following" record based on the data posted in the body 

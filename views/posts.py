@@ -44,9 +44,6 @@ class PostListEndpoint(Resource):
         # print(user_ids)   
         
         user_ids = get_authorized_user_ids(self.current_user)
-
-
-
         
         try:
             limit = int(args.get('limit') or 10)
@@ -59,6 +56,8 @@ class PostListEndpoint(Resource):
            
         posts = Post.query.filter(Post.user_id.in_(user_ids)).limit(limit).all()  #a list of post models getting returned 
         # print(posts[0].to_dict())
+
+        
         posts_json = [post.to_dict() for post in posts]
         return Response(json.dumps(posts_json), mimetype="application/json", status=200)
        # return Response(json.dumps(['hello world']), mimetype="application/json", status=200)
@@ -69,7 +68,7 @@ class PostListEndpoint(Resource):
         image_url = body.get('image_url')
         
         if not image_url:
-            return Response(json.dumps({"image doesn't exist "}),  mimetype="application/json", status=400)
+            return Response(json.dumps({"image doesn't exist"}),  mimetype="application/json", status=400)
 
         caption = body.get('caption') or ""
         alt_text = body.get('alt_text') or ""
@@ -126,7 +125,7 @@ class PostDetailEndpoint(Resource):
 
         Post.query.filter_by(id=id).delete() 
         db.session.commit()
-        # return Response(json.dumps({'post deleted'.format(id)}), mimetype="application/json", status=201)
+       # return Response(json.dumps({'post deleted'.format(id)}), mimetype="application/json", status=201)
 
 
     def get(self, id):    
