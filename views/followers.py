@@ -17,25 +17,16 @@ class FollowerListEndpoint(Resource):
        
         #1 get every user id 
         #2 for every user id, check if they are follwoing the current user 
-        user_ids_t = (
-            db.session
-            .query(User.id)
-            .all()
-        )
+        followers = Following.query.filter_by(following_id = self.current_user.id)
+        followers_json = [follower.to_dict_follower() for follower in followers]
 
-        user_ids = []
-
-        for user in user_ids_t:
-            if id in get_authorized_user_ids(user): 
-                user_ids.append(user)
-
-        followers_json = [user.to_dict for user in user_ids]  
+        # return all of the "following" records that the current user is following
+        return Response(json.dumps(followers_json), mimetype="application/json", status=200)
 
         '''
         People who are following the current user.
         In other words, select user_id where following_id = current_user.id
         '''
-        return Response(json.dumps(followers_json), mimetype="application/json", status=200)
 
 def initialize_routes(api):
     api.add_resource(

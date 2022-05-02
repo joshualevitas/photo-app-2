@@ -16,9 +16,15 @@ class CommentListEndpoint(Resource):
         post_id = body.get('post_id')
 
         post = Post.query.get(post_id)
+        #check if the post exists 
+
+        #need to add can view post 
+
+        if not post:
+            return Response(json.dumps({'message':"post doesn't exist".format(id)}),  mimetype="application/json", status=400)
         
         if not text and not post_id:
-            return Response(json.dumps({"need a caption and id".format(id)}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':"need a caption and id".format(id)}),  mimetype="application/json", status=400)
     
         new_comment = Comment(text, self.current_user.id, post.id)
         db.session.add(new_comment)
@@ -37,15 +43,15 @@ class CommentDetailEndpoint(Resource):
         comment = Comment.query.get(id)
         
         if not comment:
-            return Response(json.dumps({'id is invalid'}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':'id is invalid'}),  mimetype="application/json", status=400)
 
         # you should only be able to edit/delete posts that are yours
         if comment.user_id != self.current_user.id:
-             return Response(json.dumps({'not allowed to edit this post'}),  mimetype="application/json", status=400)
+             return Response(json.dumps({'message':'not allowed to edit this post'}),  mimetype="application/json", status=400)
 
         Comment.query.filter_by(id=id).delete() 
         db.session.commit()
-        return Response(json.dumps({'comment deleted'}), mimetype="application/json", status=201)
+        return Response(json.dumps({'message':'comment deleted'}), mimetype="application/json", status=201)
 
 
 def initialize_routes(api):

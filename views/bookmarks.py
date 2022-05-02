@@ -1,6 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
-from models import Bookmark, db
+from models import Bookmark, db, Post
+from views import can_view_post, get_authorized_user_ids
 import json
 
 class BookmarksListEndpoint(Resource):
@@ -10,14 +11,7 @@ class BookmarksListEndpoint(Resource):
     
     def get(self):
 
-        bookmarks = (
-            db.session
-            .query(Bookmark.user_id)
-            .filter(Bookmark.user_id == self.current_user)
-            .all
-        )
-
-        bookmarks = [id for (id,) in bookmarks]
+        bookmarks = Bookmark.query.filter(Bookmark.user_id == self.current_user.id)
         bookmarks_json = [bookmark.to_dict() for bookmark in bookmarks]
 
         return Response(json.dumps(bookmarks_json), mimetype="application/json", status=200)
@@ -25,8 +19,33 @@ class BookmarksListEndpoint(Resource):
     def post(self):
         # create a new "bookmark" based on the data posted in the body 
         body = request.get_json()
-        print(body)
-        return Response(json.dumps({}), mimetype="application/json", status=201)
+        if not body.get('post_id'):
+            return Response(json.dumps({'message': "need id"}), mimetype="application/json", status=400)
+
+        curr = body.get('post_id')
+        try:
+            curr = int(curr)
+        except: 
+            return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=400)
+        
+
+        users = get_authorized_user_ids(self.current_user)
+        book = Post.query.filter_by(id = curr).filter(Post.user_id.in_(users)).all()
+
+        if not book:
+            return Response(json.dumps({'message': 'not a bookmark'}), mimetype="application/json", status=201)
+        
+        # follwoing = Bookmark.query.filter_by(user_id = self.current_user.id).filter_by(post_id = curr)
+        # if len(follwoing) > 0:
+        #     return Response(json.dumps({}), mimetype="application/json", status=400)
+        
+        new_book = Bookmark(self.current_user.id, curr)
+
+        db.session.add(new_book)
+        db.session.commit()
+
+        return Response(json.dumps(new_book.to_dict()), mimetype="application/json", status=201)
+        
 
 class BookmarkDetailEndpoint(Resource):
 
@@ -36,9 +55,18 @@ class BookmarkDetailEndpoint(Resource):
     def delete(self, id):
         # delete "bookmark" record where "id"=id
         print(id)
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        bookmark = Bookmark.query.get(id)
+        
+        if not bookmark:
+            return Response(json.dumps({'message': 'not a bookmark'}),  mimetype="application/json", status=401)
 
+        # you should only be able to edit/delete posts that are yours
+        if bookmark.user_id != self.current_user.id:
+             return Response(json.dumps({'message': 'cannot delete this bookmark'}),  mimetype="application/json", status=401)
 
+        Bookmark.query.filter_by(id=id).delete() 
+        db.session.commit()
+        return Response(json.dumps({'message':'bookmark deleted'}), mimetype="application/json", status=201)
 
 def initialize_routes(api):
     api.add_resource(

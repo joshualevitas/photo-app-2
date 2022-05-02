@@ -57,7 +57,7 @@ class PostListEndpoint(Resource):
         posts = Post.query.filter(Post.user_id.in_(user_ids)).limit(limit).all()  #a list of post models getting returned 
         # print(posts[0].to_dict())
 
-        
+
         posts_json = [post.to_dict() for post in posts]
         return Response(json.dumps(posts_json), mimetype="application/json", status=200)
        # return Response(json.dumps(['hello world']), mimetype="application/json", status=200)
@@ -93,10 +93,10 @@ class PostDetailEndpoint(Resource):
         post = Post.query.get(id)
 
         if not post:
-            return Response(json.dumps({"id is invalid".format(id)}),  mimetype="application/json", status=401)
+            return Response(json.dumps({'message':"id is invalid".format(id)}),  mimetype="application/json", status=401)
         
         if post.user_id != self.current_user.id:
-            return Response(json.dumps({"id is invalid".format(id)}), mimetype="application/json",  status=401)
+            return Response(json.dumps({'message':"id is invalid".format(id)}), mimetype="application/json",  status=401)
 
         if body.get('caption'):
             post.caption = body.get('caption')
@@ -116,38 +116,34 @@ class PostDetailEndpoint(Resource):
         post = Post.query.get(id)
         
         if not post:
-            return Response(json.dumps({'id is invalid'.format(id)}),  mimetype="application/json", status=401)
+            return Response(json.dumps({'message': 'id is invalid'.format(id)}),  mimetype="application/json", status=401)
 
         # you should only be able to edit/delete posts that are yours
         if post.user_id != self.current_user.id:
-             return Response(json.dumps({'not allowed to edit this post'.format(id)}),  mimetype="application/json", status=401)
+             return Response(json.dumps({'message':'id not allowed to edit this post'.format(id)}),  mimetype="application/json", status=401)
 
 
         Post.query.filter_by(id=id).delete() 
         db.session.commit()
-       # return Response(json.dumps({'post deleted'.format(id)}), mimetype="application/json", status=201)
+        return Response(json.dumps({'message':'post deleted'.format(id)}), mimetype="application/json", status=201)
 
 
-    def get(self, id):    
-        
+    def get(self, id):           
         try:
             id = int(id)
         except:
-            return Response(json.dumps({"id must be an int"}), status=401)
+            return Response(json.dumps({'message':"id must be an int"}), status=401)
 
         post = Post.query.get(id)
         if (can_view_post(id, self.current_user)):            
             if not post:
-                return Response(json.dumps({"post doesn't exist "}), status=401)
+                return Response(json.dumps({'message':"post doesn't exist "}), status=401)
 
         user_ids = get_authorized_user_ids(self.current_user)
         if post.user_id not in user_ids:
-            return Response(json.dumps({"id is invalid"}), status=401)
+            return Response(json.dumps({'message':"id is invalid"}), status=401)
         
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
-
-
-       # return Response(json.dumps({}), mimetype="application/json", status=200)
 
 def initialize_routes(api):
     api.add_resource(

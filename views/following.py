@@ -12,24 +12,29 @@ class FollowingListEndpoint(Resource):
     
     def get(self):
 
-        followers = (
-            db.session
-                .query(Following.following_id)
-                .filter(Following.user_id == self.current_user.id)
-                .order_by(Following.following_id)
-                .all()
-         )
-
-        followers_json = [follower.to_dict() for follower in followers]
+        following = Following.query.filter_by(user_id = self.current_user.id)
+        following_json = [follower.to_dict_following() for follower in following]
 
         # return all of the "following" records that the current user is following
-        return Response(json.dumps(followers_json), mimetype="application/json", status=200)
+        return Response(json.dumps(following_json), mimetype="application/json", status=200)
 
     def post(self):
         # create a new "following" record based on the data posted in the body 
         body = request.get_json()
         print(body)
-        return Response(json.dumps({}), mimetype="application/json", status=201)
+
+        new_user_id = body.get('user_id')
+        new_following = Following(user_id = self.current_user.id, following_id = new_user_id)
+
+        #check if already follows -- this doesn't work fix this 
+        following = Following.query.filter_by(user_id = self.current_user.id)
+        if new_following in following:
+            return Response(json.dumps({'message':'already following'}),  mimetype="application/json", status=400)
+
+        db.session.add(new_following)
+        db.session.commit()
+
+        return Response(json.dumps(new_following.to_dict_following()), mimetype="application/json", status=201)
 
 class FollowingDetailEndpoint(Resource):
     def __init__(self, current_user):
@@ -38,9 +43,18 @@ class FollowingDetailEndpoint(Resource):
     def delete(self, id):
         # delete "following" record where "id"=id
         print(id)
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        follower = Following.query.get(id)
+        
+        if not follower:
+            return Response(json.dumps({'message':'id is invalid'}),  mimetype="application/json", status=400)
 
+        # you should only be able to edit/delete posts that are yours
+        if follower.user_id != self.current_user.id:
+             return Response(json.dumps({'message':'not allowed to delete'}),  mimetype="application/json", status=400)
 
+        Following.query.filter_by(id=id).delete() 
+        db.session.commit()
+        return Response(json.dumps({'message':'follower delete'}), mimetype="application/json", status=200)
 
 
 def initialize_routes(api):

@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
-from models import LikePost, db
+from models import LikePost, db, Post
 import json
 
 class PostLikesListEndpoint(Resource):
@@ -10,9 +10,32 @@ class PostLikesListEndpoint(Resource):
     
     def post(self):
         # create a new "like_post" based on the data posted in the body 
+
         body = request.get_json()
         print(body)
-        return Response(json.dumps({}), mimetype="application/json", status=201)
+
+        #check for post_id 
+        post_id = body.get('post_id')
+        if not post_id:
+            return Response(json.dumps({'message':"need a caption and id".format(id)}),  mimetype="application/json", status=400)
+        
+        #need to check if post id is an integer: 
+        # try:
+        #     id = int(id)
+        # except:
+        #     return Response(json.dumps({'message':"id must be an int"}), status=401)
+
+        post = Post.query.get(post_id)
+        #check if the post exists 
+
+        if not post:
+            return Response(json.dumps({'message':"post doesn't exist".format(id)}),  mimetype="application/json", status=400)
+         
+        new_like = LikePost(self.current_user.id, post_id)
+
+        db.session.add(new_like)
+        db.session.commit()
+        return Response(json.dumps(new_like.to_dict()), mimetype="application/json", status=201)
 
 class PostLikesDetailEndpoint(Resource):
 
@@ -22,7 +45,18 @@ class PostLikesDetailEndpoint(Resource):
     def delete(self, id):
         # delete "like_post" where "id"=id
         print(id)
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        likepost = LikePost.query.get(id)
+        
+        if not likepost:
+            return Response(json.dumps({'message':'id is invalid'}),  mimetype="application/json", status=400)
+
+        # you should only be able to edit/delete posts that are yours
+        if likepost.user_id != self.current_user.id:
+             return Response(json.dumps({'message':'not allowed to edit this post'}),  mimetype="application/json", status=400)
+
+        LikePost.query.filter_by(id=id).delete() 
+        db.session.commit()
+        return Response(json.dumps({'message':'like deleted'}), mimetype="application/json", status=201)
 
 
 
