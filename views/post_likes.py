@@ -39,9 +39,9 @@ class PostLikesListEndpoint(Resource):
         if post.user_id not in user_ids:
             return Response(json.dumps({'message':"id is invalid"}), status=404)
     
-        likeposts = LikePost.query.filter(LikePost.post_id == post_id)
+        likeposts = LikePost.query.filter(LikePost.post_id == body.get('post_id'))
         for likepost in likeposts:
-            if likepost.user_id == self.current_user:
+            if likepost.user_id == self.current_user.id:
                 return Response(json.dumps({'message': "youve already liked this post"}), mimetype="application/json", status=400) 
 
         new_like = LikePost(self.current_user.id, post_id)
