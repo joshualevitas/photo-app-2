@@ -36,9 +36,10 @@ class FollowingListEndpoint(Resource):
             return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=400)
 
         #check if user is in user ids 
-        user = User.query.filter_by(id = new_user_id)
+        user = User.query.get(new_user_id)
         if not user:
             return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=404)
+
 
         # #check already following 
         following = Following.query.filter_by(user_id = self.current_user.id)
