@@ -1,5 +1,6 @@
 from flask import Response, request
 from flask_restful import Resource
+from models import User
 import json
 
 def get_path():
@@ -11,7 +12,10 @@ class ProfileDetailEndpoint(Resource):
         self.current_user = current_user
 
     def get(self):
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+
+        id = self.current_user.id  
+        user_profile = User.query.get(id)
+        return Response(json.dumps(user_profile.to_dict()), mimetype="application/json", status=200)
 
 
 def initialize_routes(api):
