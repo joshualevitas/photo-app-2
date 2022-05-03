@@ -24,12 +24,31 @@ class FollowingListEndpoint(Resource):
         print(body)
 
         new_user_id = body.get('user_id')
+
+        curr = body.get('user_id')
+        try:
+            curr = int(curr)
+        except: 
+            return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=400)
+
+        users_ids = User.query.all(id) 
+        if new_user_id not in users_ids.id: 
+            return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=404)
+
+
+
+        following = Following.query.filter_by(user_id = self.current_user.id)
+        for follower in following:
+            if follower.following_id == body.get('user_id'):
+                return Response(json.dumps({'message': "already exists in following"}), mimetype="application/json", status=400) 
+
+
         new_following = Following(user_id = self.current_user.id, following_id = new_user_id)
 
-        #check if already follows -- this doesn't work fix this 
-        following = Following.query.filter_by(user_id = self.current_user.id)
-        if new_following in following:
-            return Response(json.dumps({'message':'already following'}),  mimetype="application/json", status=400)
+        # #check if already follows -- this doesn't work fix this 
+        # following = Following.query.filter_by(user_id = self.current_user.id)
+        # if new_following in following:
+        #     return Response(json.dumps({'message':'already following'}),  mimetype="application/json", status=400)
 
         db.session.add(new_following)
         db.session.commit()
@@ -46,11 +65,11 @@ class FollowingDetailEndpoint(Resource):
         follower = Following.query.get(id)
         
         if not follower:
-            return Response(json.dumps({'message':'id is invalid'}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':'id is invalid'}),  mimetype="application/json", status=404)
 
         # you should only be able to edit/delete posts that are yours
         if follower.user_id != self.current_user.id:
-             return Response(json.dumps({'message':'not allowed to delete'}),  mimetype="application/json", status=400)
+             return Response(json.dumps({'message':'not allowed to delete'}),  mimetype="application/json", status=404)
 
         Following.query.filter_by(id=id).delete() 
         db.session.commit()

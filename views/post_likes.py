@@ -17,19 +17,19 @@ class PostLikesListEndpoint(Resource):
         #check for post_id 
         post_id = body.get('post_id')
         if not post_id:
-            return Response(json.dumps({'message':"need a caption and id".format(id)}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':"need an id".format(id)}),  mimetype="application/json", status=404)
         
         #need to check if post id is an integer: 
-        # try:
-        #     id = int(id)
-        # except:
-        #     return Response(json.dumps({'message':"id must be an int"}), status=401)
+        try:
+            id = int(id)
+        except:
+            return Response(json.dumps({'message':"id must be an int"}), status=404)
 
-        post = Post.query.get(post_id)
+
         #check if the post exists 
-
+        post = Post.query.get(post_id)
         if not post:
-            return Response(json.dumps({'message':"post doesn't exist".format(id)}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':"post doesn't exist".format(id)}),  mimetype="application/json", status=404)
          
         new_like = LikePost(self.current_user.id, post_id)
 
