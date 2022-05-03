@@ -25,34 +25,16 @@ class PostListEndpoint(Resource):
     def get(self):
 
         args = request.args
-
-        #goal: limit to only user #12 (current_user's) network 
-        # - oneself 
-        # - ppl #12 are follwoing 
-
-        #1. Query th following table: 
-        # user_ids_tuples = (
-        #      db.session
-        #         .query(Following.following_id)
-        #         .filter(Following.user_id == self.current_user.id)
-        #         .order_by(Following.following_id)
-        #          .all()
-        #             )           
-
-        # print(user_ids_tuples)      
-        # user_ids = [id for (id,) in user_ids_tuples]
-        # print(user_ids)   
-        
         user_ids = get_authorized_user_ids(self.current_user)
         
         try:
-            limit = int(args.get('limit') or 10)
-        
+            limit = int(args.get('limit') or 10)     
         except: 
-           return Response(json.dumps({"the limit parameter is invalid"}), mimetype="application/json", status=400)
+           return Response(json.dumps({'message':"the limit parameter is invalid"}), mimetype="application/json", status=400)
        
         if limit > 50:
-            return Response(json.dumps({"the limit parameter is invalid"}), mimetype="application/json", status=400)
+            limit = 50
+            return Response(json.dumps({'message':"the limit parameter is invalid"}), mimetype="application/json", status=400)
            
         posts = Post.query.filter(Post.user_id.in_(user_ids)).limit(limit).all()  #a list of post models getting returned 
         # print(posts[0].to_dict())
@@ -68,10 +50,10 @@ class PostListEndpoint(Resource):
         image_url = body.get('image_url')
         
         if not image_url:
-            return Response(json.dumps({"image doesn't exist"}),  mimetype="application/json", status=400)
+            return Response(json.dumps({'message':"image doesn't exist"}),  mimetype="application/json", status=400)
 
-        caption = body.get('caption') or ""
-        alt_text = body.get('alt_text') or ""
+        caption = body.get('caption') 
+        alt_text = body.get('alt_text') 
 
         new_post = Post(image_url, self.current_user.id, caption, alt_text)
         db.session.add(new_post)
@@ -93,10 +75,10 @@ class PostDetailEndpoint(Resource):
         post = Post.query.get(id)
 
         if not post:
-            return Response(json.dumps({'message':"id is invalid".format(id)}),  mimetype="application/json", status=401)
+            return Response(json.dumps({'message':"id is invalid".format(id)}),  mimetype="application/json", status=404)
         
         if post.user_id != self.current_user.id:
-            return Response(json.dumps({'message':"id is invalid".format(id)}), mimetype="application/json",  status=401)
+            return Response(json.dumps({'message':"id is invalid".format(id)}), mimetype="application/json",  status=404)
 
         if body.get('caption'):
             post.caption = body.get('caption')
@@ -108,7 +90,7 @@ class PostDetailEndpoint(Resource):
             post.image_url = body.get("image_url")
 
         db.session.commit()    
-        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=201)
+        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
 
 
     def delete(self, id):
@@ -116,32 +98,32 @@ class PostDetailEndpoint(Resource):
         post = Post.query.get(id)
         
         if not post:
-            return Response(json.dumps({'message': 'id is invalid'.format(id)}),  mimetype="application/json", status=401)
+            return Response(json.dumps({'message': 'id is invalid'.format(id)}),  mimetype="application/json", status=404)
 
         # you should only be able to edit/delete posts that are yours
         if post.user_id != self.current_user.id:
-             return Response(json.dumps({'message':'id not allowed to edit this post'.format(id)}),  mimetype="application/json", status=401)
+             return Response(json.dumps({'message':'id not allowed to edit this post'.format(id)}),  mimetype="application/json", status=404)
 
 
         Post.query.filter_by(id=id).delete() 
         db.session.commit()
-        return Response(json.dumps({'message':'post deleted'.format(id)}), mimetype="application/json", status=201)
+        return Response(json.dumps({'message':'post deleted'.format(id)}), mimetype="application/json", status=200)
 
 
-    def get(self, id):           
+    def get(self, id):  
+        
         try:
             id = int(id)
         except:
-            return Response(json.dumps({'message':"id must be an int"}), status=401)
+            return Response(json.dumps({'message':"id must be an int"}), status=404)
 
         post = Post.query.get(id)
-        if (can_view_post(id, self.current_user)):            
-            if not post:
-                return Response(json.dumps({'message':"post doesn't exist "}), status=401)
+        if not post:           
+                return Response(json.dumps({'message':"post doesn't exist "}), status=404)
 
         user_ids = get_authorized_user_ids(self.current_user)
         if post.user_id not in user_ids:
-            return Response(json.dumps({'message':"id is invalid"}), status=401)
+            return Response(json.dumps({'message':"id is invalid"}), status=404)
         
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
 
