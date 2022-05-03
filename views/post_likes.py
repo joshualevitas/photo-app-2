@@ -59,7 +59,6 @@ class PostLikesDetailEndpoint(Resource):
         return Response(json.dumps({'message':'like deleted'}), mimetype="application/json", status=201)
 
 
-
 def initialize_routes(api):
     api.add_resource(
         PostLikesListEndpoint, 
