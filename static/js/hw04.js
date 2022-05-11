@@ -17,7 +17,32 @@ const displayStories = () => {
         })
 };
 
+// Create a post
+
+const post2Html = post => {
+    return `
+    <section>
+        <img src="${post.image_url}" />
+        <p>${post.caption}</p>
+    </section>
+    `
+}
+
+const displayPosts = () => {
+    fetch('/api/posts')
+        .then(response => response.json())
+        .then(posts => {
+            const html = posts.map(post2Html).join('\n');
+            document.querySelector('#posts').innerHTML = html;
+        })
+};
+
+
+
+
+
 const initPage = () => {
+    displayPosts();
     displayStories();
 };
 
