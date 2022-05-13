@@ -1,4 +1,15 @@
 
+const getSuggestions = () =>{
+    fetch('/api/suggestions/')
+    .then(response => response.json())
+    .then(users => {
+        console.log(users);
+        const html = users.map(user2Html).join('\n');
+        document.querySelector('#suggestions').innerHTML = html; 
+        });
+
+};
+
 const toggleFollow = ev => {
     const elem = ev.currentTarget;
     console.log(elem.dataset);
@@ -29,7 +40,7 @@ const createFollower = (userId, elem) =>{
             elem.setAttribute('aria-checked', 'true');
             elem.classList.add('unfollow');
             elem.classList.remove('follow');
-            elem.setAttribute('data-following-id', data.id) //in the event you want to unfollow user you just followed 
+            elem.setAttribute('data-following-id', data.id)
             });
 };
 
@@ -45,8 +56,7 @@ const deleteFollower = (followingId, elem) =>{
             elem.classList.add('follow');
             elem.classList.remove('unfollow');
             elem.removeAttribute('data-following-id');
-            elem.setAttribute('aria-checked', 'false');//in the event you want to unfollow user you just followed 
-            
+            elem.setAttribute('aria-checked', 'false');
         });
 };
 
@@ -69,16 +79,7 @@ const user2Html = user => {
 };
 
 
-const getSuggestions = () =>{
-    fetch('/api/suggestions/')
-    .then(response => response.json())
-    .then(users => {
-        console.log(users);
-        const html = users.map(user2Html).join('\n');
-        document.querySelector('#suggestions').innerHTML = html; 
-        });
 
-};
 
 getSuggestions();
 
