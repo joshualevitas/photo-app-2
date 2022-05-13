@@ -1,6 +1,7 @@
 
 const toggleFollow = ev => {
     const elem = ev.currentTarget;
+    console.log(elem.dataset);
     if (elem.getAttribute('aria-checked') === 'false'){
         createFollower(elem.dataset.userId, elem);}
     else{
@@ -9,11 +10,12 @@ const toggleFollow = ev => {
 };
 
 const createFollower = (userId, elem) =>{
+    console.log(userId);
     const postData = {
         "user_id": userId
     };
     
-    fetch("https://photo-app-annabel.herokuapp.com/api/following/", {
+    fetch("/api/following/", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +34,7 @@ const createFollower = (userId, elem) =>{
 };
 
 const deleteFollower = (followingId, elem) =>{
-    const deleteURL = `https://photo-app-annabel.herokuapp.com/api/following/${followingId}`
+    const deleteURL = `/api/following/${followingId}`
     fetch(deleteURL, {
             method: "DELETE",
         })
@@ -60,7 +62,7 @@ const user2Html = user => {
                 class = "follow" 
                 aria-label ="Follow"
                 aria-checked = "false"
-                data-user-id-"${user.id}" 
+                data-user-id="${user.id}" 
                 onclick="toggleFollow(event);">follow</button>
         </div>
     </div>`;
@@ -68,7 +70,7 @@ const user2Html = user => {
 
 
 const getSuggestions = () =>{
-    fetch('https://photo-app-annabel.herokuapp.com/api/suggestions/')
+    fetch('/api/suggestions/')
     .then(response => response.json())
     .then(users => {
         console.log(users);
