@@ -11,14 +11,15 @@ class SuggestionsListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
-        # suggestions should be any user with an ID that's not in this list:
-        # print(get_authorized_user_ids(self.current_user))
+        #suggestions should be any user with an ID that's not in this list:
+        print(get_authorized_user_ids(self.current_user))
         user_ids_tuples = (
             db.session
             .query(User.id)
             .all()
-         )
+        )
 
+       
         user_ids = [id for (id,) in user_ids_tuples]
         users = []
 
@@ -26,6 +27,7 @@ class SuggestionsListEndpoint(Resource):
             if id not in get_authorized_user_ids(self.current_user):
                 user_profile = User.query.get(id)
                 users.append(user_profile)
+
 
         users_json = [user.to_dict() for user in users][:7]
 
