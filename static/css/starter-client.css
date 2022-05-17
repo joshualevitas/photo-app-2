@@ -105,10 +105,12 @@ main {
     margin-bottom: 30px;
     background-color: #fff;
     overflow: hidden;
+    border-color:red;
 }
+
 .stories > div {
-    margin-right: 20px;
-    display: flex;
+    margin-right: 10px;
+    display: flex-start;
     flex-direction: column;
     align-items: center;
 }
@@ -267,4 +269,74 @@ aside header .pic {
     .card, .stories {
         width: 90vw;
     }
+}
+
+
+#suggestions{
+    width: 400px;
+    background-color:rgb(235, 235, 235);
+}
+
+.suggestion{
+    display: grid;
+    grid-template-columns: 40px auto 70px;
+    margin-bottom: 5px;
+    align-items: flex-end;
+    padding: 5px;
+}
+
+.suggestion p{
+    margin:0;
+    margin-left: 12px;
+    margin-bottom: 5px;
+}
+
+.suggestion img{
+    display: flex;
+    border-radius: 50%;
+    width: 40px;
+
+}
+
+.suggestion .username{
+    font-weight: bold;
+}
+
+.suggestion .suggestion-text{
+    font-size: .9em;
+    color: #555;
+}
+
+
+.suggestion button{
+    padding: 5px 10px;
+    border: 1px;
+    border-radius: 4px;
+    border-color: gray
+}
+.follow{
+    background: transparent
+}
+
+.unfollow{
+    background: white
+
+}
+
+#user_profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#profile_text{
+    margin-left: 20px;
+    font-size: 20px;
+
+}
+
+.profile-pic {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
 }
