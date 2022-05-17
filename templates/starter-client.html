@@ -14,14 +14,15 @@
     {% include 'includes/navbar.html'  %}
 
     <aside>
-        <header>
+        <header id="user_profile">
             <!-- user profile rendered client-side -->
         </header>
-        <div class="suggestions">
+        <div>
             <p class="suggestion-text">Suggestions for you</p>
-            <div>
-                <!-- Suggestions rendered client-side -->
-                <p>TBD</p>
+        </div>
+        <div id="suggestions">
+            <div class="suggestion">
+                <!-- suggestions rendered client-side-->
             </div>
         </div>
     </aside>
@@ -33,9 +34,9 @@
         </header>
 
         <!-- Posts -->
+
         <div id="posts">
             <!-- Posts rendered client-side -->
-            <p>TBD</p>
         </div>
 
     </main>
