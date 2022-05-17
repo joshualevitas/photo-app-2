@@ -44,25 +44,33 @@ const handleBookmark = ev =>{
 const post2HTML = post =>{
     return `
     <div class="post-photo">
-        <img src= "${ post.image_url}}" />
-        <button class="fa fa-heart fa-lg" style="padding: 0px 5px 0px 0px" onclick = "handleLike(event);"></button>
-        <button class="fa fa-comment fa-lg" style="padding: 0px 5px 0px 0px"></button>
-        <button class= "fa fa-paper-plane fa-lg" style="padding: 0px 5px 0px 0px"></button>
-        <button class = "fa fa-bookmark fa-lg" onclick = "handleBookmark(event);"></button>
+        <img src= "${post.image_url}}" />
+
+    
+    <div class = "content>
+        <div class = "icons">
+            <div class = "three_icons">
+                <button id = "unlike" class="fa fa-heart fa-lg"  
+                    data-post-id = "${post.id}"
+                    data-like
+                    onclick = "toggleLike(event);"></button>
+                <button class="fa fa-comment fa-lg" style="padding: 0px 5px 0px 0px"></button>
+                <button class= "fa fa-paper-plane fa-lg" style="padding: 0px 5px 0px 0px"></button>
+
+            </div>
+            
+            <div class = "one_icon">
+                <button class = "fa fa-bookmark fa-lg" onclick = "handleBookmark(event);"></button>
+            
+            </div>
 
         <div class="post-info"> 
-            <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>likes</strong></p>
+            <p style="font-family: Arial, Helvetica, sans-serif; padding-left: 5px"><strong>${post.likes} likes</strong></p>
         </div>  
 
         <div>
-            <p>${post.caption}</p>
-        </div>  
-        
-        
-
-
-   </div>`
-   ;
+            <p><strong>${post.user.username} </strong>${post.caption}</p>
+        </div>`
     
 };
 
