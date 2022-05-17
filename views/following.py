@@ -1,6 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
 from models import Following, User, db
+from views import can_view_post, get_authorized_user_ids
 import json
 
 def get_path():
@@ -23,36 +24,32 @@ class FollowingListEndpoint(Resource):
         body = request.get_json()
         print(body)
 
+        #check if given user id 
         new_user_id = body.get('user_id')
+        if not new_user_id:
+            return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=400)
 
-        curr = body.get('user_id')
+        #check if id is integer
         try:
-            curr = int(curr)
+            new_user_id = int(new_user_id)
         except: 
             return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=400)
 
-        users_ids = User.query.all(id) 
-        if new_user_id not in users_ids.id: 
+        #check if user is in user ids 
+        user = User.query.get(new_user_id)
+        if not user:
             return Response(json.dumps({'message': 'not a valid id'}), mimetype="application/json", status=404)
 
-
-
+        # #check already following 
         following = Following.query.filter_by(user_id = self.current_user.id)
         for follower in following:
-            if follower.following_id == body.get('user_id'):
+            if follower.following_id == new_user_id:
                 return Response(json.dumps({'message': "already exists in following"}), mimetype="application/json", status=400) 
 
 
         new_following = Following(user_id = self.current_user.id, following_id = new_user_id)
-
-        # #check if already follows -- this doesn't work fix this 
-        # following = Following.query.filter_by(user_id = self.current_user.id)
-        # if new_following in following:
-        #     return Response(json.dumps({'message':'already following'}),  mimetype="application/json", status=400)
-
         db.session.add(new_following)
         db.session.commit()
-
         return Response(json.dumps(new_following.to_dict_following()), mimetype="application/json", status=201)
 
 class FollowingDetailEndpoint(Resource):
