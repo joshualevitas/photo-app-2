@@ -32,7 +32,7 @@ initialize_routes(api)
 @app.route('/')
 def home():
     return render_template(
-        'starter-client.html', 
+        'index.html', 
         user=app.current_user
     )
 

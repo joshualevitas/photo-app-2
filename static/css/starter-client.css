@@ -1,3 +1,5 @@
+
+   
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -332,6 +334,8 @@ aside header .pic {
 #profile_text{
     margin-left: 20px;
     font-size: 20px;
+    font-family: 'Comfortaa', cursive;;
+
 
 }
 
@@ -339,4 +343,21 @@ aside header .pic {
     height: 60px;
     width: 60px;
     border-radius: 50%;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+    /* border: 1px blue dotted; */
+}
+
+.icons button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2em;
+}
+
+.fas.fa-heart {
+    color: red;
 }

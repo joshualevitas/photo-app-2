@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Photo App</title>
+        <link rel="stylesheet" href="static/css/style.css">
+        <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <script src="https://kit.fontawesome.com/99a22e143d.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600&display=swap" rel="stylesheet">
+    <script lang="text/javascript" src="/static/js/hw04.js" defer></script>
+    
+    </head>
+
+    <body>
+
+        <div id="nav-section">
+            <header id="header">
+                <nav id="navbar">
+                        <h1>Photo App</h1>
+        
+                        <ul>
+                            <li>
+                                {% if request.url_rule.endpoint == 'api_docs' %}
+                                    <a href="/">Home</a>
+                                {% else %}
+                                    <a href="/api">API Docs</a>
+                                {% endif %}
+                            </li>
+                            <li><span>{{ user.username }}</span></li>
+                            <li><a href="#">Sign out</a></li>
+                        </ul>
+                                    
+                </nav>
+            </header>
+        </div>
+
+        
+        <div id="main-content">
+
+            <div class="stories">
+                <!--rendered client side -->
+            </div>
+
+
+        <div class="post-card">
+            <!--rendered client side -->
+        </div>
+
+
+    <div id="rec-panel">
+        <div id="prof">
+            <!--rendered client-->
+        </div>
+
+        <div id="suggestions">
+            <div class="suggestion">
+                <!-- suggestions rendered client-side-->
+            </div>
+        </div>
+
+    
+    </div>
+
+
+
+    </body>
+
+
+
+<!-- We would add a feature, so when users post their image they 
+    could add alt text easily. To do this, we would have to add an 
+    advanced setting that users could turn on when they are deciding 
+    to post a phoot so users can edit an alt text on their posts.
+    This advanced setting would be an option when uploading a photo to post.
+    Once the photo is posted, this alt text edit option would go 
+    to the bottom right of the user's photo and then once 
+    it is posted they can edit this alt text to make their photo 
+    more accessible. 
+-->
