@@ -444,8 +444,11 @@ aside header .pic {
     color:red
 }
 
-.far.fa-xmark {
-    color:gray;
+.fas.fa-xmark {
+    color:#d3d3d3;
+    font-size: 1.75em;
+    margin-left: 20px;
+    margin-bottom: 720px;
 }
 
 input[type="button"] {
@@ -454,6 +457,7 @@ input[type="button"] {
     }
 
 .modal-bg {
+    display:flex;
     background: rgba(50, 50, 50, 0.8);
     position: fixed;
     top: 0px;
