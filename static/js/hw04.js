@@ -232,12 +232,15 @@ const addComment = (elem) => {
 //---------Modal-----
 
 const closeModal = ev => {
+    document.getElementById('rec-panel').style.display='initial';
+   
     console.log('close!');
     document.querySelector('.modal-bg').remove();
 };
 
 
 const showModal = ev => { 
+    document.getElementById('rec-panel').style.display='none';
     const postId = Number(ev.currentTarget.dataset.postId);
     redrawPost(postId, post => {
     const html = post2Modal(post);
@@ -247,17 +250,23 @@ const showModal = ev => {
 };
 
 const post2Modal = post => {
+    
     return `  <div class="modal-bg" aria-hidden="false" role="dialog">
+
                 <section class="modal">
+                <button class="fas fa-xmark" aria-label="Close the modal window" onclick="closeModal(event);"></button>
+
+
                     <img src= "${post.image_url}"/>
                     <p>${post.caption}</p>
                     <p>
-                    <p>${displayallComments(post)}>
+                   
                     
-                    <button class="close" aria-label="Close the modal window" onclick="closeModal(event);">Close</button>
                 </section>
             </div>`
 };
+
+
 
 
 //----------------------Renderbookmark+like-----------

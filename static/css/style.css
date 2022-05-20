@@ -20,6 +20,7 @@
 
    /* border: solid 1px red;*/
     min-width: 300px;
+    visibility: visible;
 
 }
 
@@ -441,6 +442,10 @@ aside header .pic {
 
 .fas.fa-heart{
     color:red
+}
+
+.far.fa-xmark {
+    color:gray;
 }
 
 input[type="button"] {
