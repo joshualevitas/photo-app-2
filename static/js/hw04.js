@@ -254,7 +254,6 @@ const post2Modal = post => {
     return `  <div class="modal-bg" aria-hidden="false" role="dialog">
 
                 <section class="modal">
-                <button class="fas fa-xmark" aria-label="Close the modal window" onclick="closeModal(event);"></button>
 
 
                     <img src= "${post.image_url}"/>
@@ -263,6 +262,8 @@ const post2Modal = post => {
                    
                     
                 </section>
+                <button class="fas fa-xmark" aria-label="Close the modal window" onclick="closeModal(event);"></button>
+
             </div>`
 };
 

@@ -444,8 +444,12 @@ aside header .pic {
     color:red
 }
 
-.far.fa-xmark {
-    color:gray;
+.fas.fa-xmark {
+    color:#f3f3f3;
+    font-size: 1.75em;
+    margin-bottom: 720px;
+    margin-left: 20px;
+    
 }
 
 input[type="button"] {
