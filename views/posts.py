@@ -125,7 +125,7 @@ class PostDetailEndpoint(Resource):
         if post.user_id not in user_ids:
             return Response(json.dumps({'message':"id is invalid"}), status=404)
         
-        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        return Response(json.dumps(post.to_dict(user = self.current_user)), mimetype="application/json", status=200)
 
 def initialize_routes(api):
     api.add_resource(

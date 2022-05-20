@@ -22,13 +22,36 @@ const displayStories = () => {
         })
 };
 
+//-----------------Redraw post---------------------
+const redrawPost = (postId, callback) => {
+    // requery api for the post that has just changed
+    fetch(`/api/posts/${postId}`)
+        .then(response => response.json())
+        .then(updatedPost => {
+            if (!callback){
+                redrawCard(updatedPost);
+            }else{
+                callback(updatedPost);
+            }
+        });
+    
+};
+
+const redrawCard = post => {
+    console.log(post)
+    const html = post2HTML(post);
+    const newElt = stringToHTML(html)
+    const postElement = document.querySelector(`#post_${post.id}`);
+    console.log(newElt.innerHTML);
+    postElement.innerHTML = newElt.innerHTML;
+};
 
 
 // -------- LIKES ---------------------------------
 const stringToHTML = htmlString => {
     var parser = new DOMParser();
     var doc = parser.parseFromString(htmlString, 'text/html');
-    return doc.body;
+    return doc.body.firstChild;
 };
 
 
@@ -44,26 +67,8 @@ const handleLike = ev =>{
         console.log("Liking post");
         likePost(elem);
     }
-
     // redraw post to reflect new status
 };
-
-
-const redrawPost = postId => {
-    // requery api for the post that has just changed
-    fetch(`/api/posts/${postId}`)
-        .then(response => response.json())
-        .then(updatedPost => {
-            console.log(updatedPost)
-            // redraw post
-            const html = post2HTML(updatedPost);
-            const newElt = stringToHTML(html)
-            const postElement = document.querySelector(`#post_${postId}`);
-            postElement.innerHTML = newElt.innerHTML;
-        });
-    
-};
-
 
 const unlikePost = (elem) => {
     console.log('unlike post', elem);
@@ -81,8 +86,10 @@ const unlikePost = (elem) => {
     });
 };
 
+
 const likePost = (elem) => {
     const postId = Number(elem.dataset.postId)
+    console.log('like post', elem);
     const postData = {
         "post_id": postId
     };
@@ -104,12 +111,156 @@ const likePost = (elem) => {
   
 };
 
+//-------------------------Bookmark-------------------------
+
 const handleBookmark = ev =>{
     console.log("handleBookmark functionality");
+    const elem = ev.currentTarget;
+    // if aria-checked true: DELETE like object
+    if (elem.getAttribute('aria-checked') === "true") {
+        console.log("unbookmarking post");
+        unbookmarkPost(elem);
+    }
+    // if aria-checked false: POST like object
+    else {
+        console.log("bookmarking post");
+        bookmarkPost(elem);
+    }
+    // redraw post to reflect new status
 };
 
 
-// -------- Posts ---------------------------------
+const unbookmarkPost = (elem) => {
+    console.log('unbookmark post', elem);
+    fetch(`/api/bookmarks/${elem.dataset.bookmarkId}`, {
+        method: "DELETE",
+        headers : {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json)
+    .then(data => {
+        console.log(data)
+        console.log('redraw the post')
+        redrawPost(Number(elem.dataset.postId))
+    });
+};
+
+
+const bookmarkPost = (elem) => {
+    const postId = Number(elem.dataset.postId)
+    console.log('bookmark post', elem);
+    const postData = {
+        "post_id": postId
+    };
+    
+    fetch("/api/bookmarks/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log("redraw the post")
+            // elem.setAttribute('current_user_like_id', elem.dataset.userId)
+            redrawPost(postId)
+        });
+  
+};
+
+//------------------COmments ---------------------
+const displayComments = post => {
+    if (post.comments.length > 1){
+        //do nothing
+        return ` <button class = "viewbutton" data-post-id=${post.id} onclick="showModal(event);"> View all ${post.comments.length} Comments</button>
+        <p><strong>${post.comments[0].user.username} </strong>${post.comments[0].text}</p>
+        <p style="color: gray; font-size: 13px;" >${post.comments[0].display_time}
+        </p>`;
+    } else if (post.comments.length === 1){
+        return `<p><strong>${post.comments[0].user.username} </strong>${post.comments[0].text}</p><p style="color: gray; font-size: 13px;" >${post.comments[0].display_time}</p>`
+    } else if (post.comments.length === 0){
+        return '';
+    }
+};
+
+const displayallComments = post => {
+    for(comment in post.comments){
+        return `<p><strong>${comment.username} </strong>${comment.text}</p>
+    <p style="color: gray; font-size: 13px;" >${comment.display_time}
+    </p>`;
+    };
+};
+
+
+
+
+
+const toggleComment = ev => {
+    elem = ev.currentTarget;
+    addComment(elem.dataset.postId, document.getElementById)
+}
+
+const addComment = (elem) => {
+    const postId = Number(elem.dataset.postId)
+    console.log('comment on post', elem);
+    const postData = {
+        "post_id": postId,
+        "text" : text
+    };
+
+    fetch("/api/comments/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log("add comment to the post")
+            // elem.setAttribute('current_user_like_id', elem.dataset.userId)
+            redrawPost(postId)
+        });
+
+    };
+
+
+//---------Modal-----
+
+const closeModal = ev => {
+    console.log('close!');
+    document.querySelector('.modal-bg').remove();
+};
+
+
+const showModal = ev => { 
+    const postId = Number(ev.currentTarget.dataset.postId);
+    redrawPost(postId, post => {
+    const html = post2Modal(post);
+    document.querySelector(`#post_${post.id}`).insertAdjacentHTML('beforeend', html);
+    });
+
+};
+
+const post2Modal = post => {
+    return `  <div class="modal-bg" aria-hidden="false" role="dialog">
+                <section class="modal">
+                    <img src= "${post.image_url}"/>
+                    <p>${post.caption}</p>
+                    <p>
+                    <p>${displayallComments(post)}>
+                    
+                    <button class="close" aria-label="Close the modal window" onclick="closeModal(event);">Close</button>
+                </section>
+            </div>`
+};
+
+
+//----------------------Renderbookmark+like-----------
 const renderLikeButton = post => {
     if (post.current_user_like_id) {
         console.log("there is a like here!")
@@ -138,7 +289,6 @@ const renderLikeButton = post => {
         `;
     };
 }
-
 const renderBookmarkButton = post => {
     if (post.current_user_bookmark_id) {
         return `
@@ -158,7 +308,7 @@ const renderBookmarkButton = post => {
             <button
                 class="far fa-bookmark"  
                 data-post-id = "${post.id}"
-                aria-label = "Like / Unlike"
+                aria-label = "Bookmark / Unbookmark"
                 aria-checked = "false"
                 onclick = "handleBookmark(event);">
             </button>
@@ -168,11 +318,10 @@ const renderBookmarkButton = post => {
 };
 
 
-
+// -------- Posts ---------------------------------
 const post2HTML = post =>{
     return `
-    <section id="post_${post.id}">
-    <div class="post-card">
+    <section id="post_${post.id}" class="post-card">
         <div id="top-bar">
             <p style="font-size: 20px;"><strong>${post.user.username}</strong></p>
             <i class="fa-solid fa-ellipsis"></i>
@@ -201,23 +350,11 @@ const post2HTML = post =>{
 
         <div id="comment-section">
             <div class="comment">
-                <p><strong>${post.user.username}</strong> ${post.caption} <a href ='' style="color: rgb(23, 175, 235);">more</a></p>
+                <p><strong>${post.user.username}</strong> ${post.caption} <a href =''style="color: rgb(23, 175, 235);">more</a></p>
+                <p style="color: gray; font-size: 13px;" >${post.display_time}</p>
             </div>
 
-            <div class="comment">
-                <p><strong>bobama</strong> this is a great picture. thanks for sharing!</p>
-            </div>
-
-
-            <div class="comment">
-                <p><strong>berniesanders</strong> where to buy kitchen stand mixer google</p>
-            </div>
-
-            <div id="day-ago">
-                <p style="color: gray; font-size: 13px;" >1 DAY AGO</p>
-            </div>
-
-
+            ${displayComments(post)}
         </div>
 
         <div id="add-comment-section">
@@ -233,13 +370,10 @@ const post2HTML = post =>{
         </div>
 
 
-    </div>
-</section>`
+    </section>`
     
     
 };
-
-
 
 // fetch data from your API endpoint:
 const displayPosts = () => {
@@ -259,14 +393,7 @@ const profile2Html = user => {
     <img src="${user.thumb_url}" class="profile-pic">
     <p class="profile_text" style="font-size: 27px"><strong>${user.username}</strong></p>
     </div>`
-    
-    
-    // `<header id="prof">                
-    //      <img src = "${user.thumb_url}" class="profile-pic"/> 
-    //      <div>
-    //          <p id ="profile_text">${user.username}</p>
-    //      </div>
-    //  </header>`;
+
  };
  
  

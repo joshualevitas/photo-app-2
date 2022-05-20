@@ -263,6 +263,8 @@ a:link {
 
 #comment-section p {
     margin: 0px;
+    padding: 5px;
+    font-size: 13px;
 }
 
 #add-comment-section {
@@ -273,6 +275,15 @@ a:link {
     justify-content: space-between;
     font-family: Arial, Helvetica, sans-serif;
 
+}
+
+button{
+    background-color: transparent;
+    border: none;
+}
+
+#viewbutton{
+    color: lightblue;
 }
 
 #day-ago{
@@ -430,4 +441,63 @@ aside header .pic {
 
 .fas.fa-heart{
     color:red
+}
+
+input[type="button"] {
+    border: none;
+    outline:none;
+    }
+
+.modal-bg {
+    background: rgba(50, 50, 50, 0.8);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    width: 60vw;
+    height: auto;
+    max-height: 80vh;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.close {
+    align-self: flex-end;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    align-content: flex-start;
+    padding: 10px;
+    align-items: center;
+    border-bottom: solid 1px #CCC;
+}
+
+
+.close {
+    align-self: flex-end;
+}
+
+.hidden {
+    display: none !important;
 }
