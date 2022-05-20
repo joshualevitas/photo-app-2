@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Lab 7</title>
+        <link rel="stylesheet" href="/static/css/lab7.css"/>
+        <script lang = "text/javascript" src="/static/js/lab7.js" defer></script>
+    </head>
+    <body>
+        <h1>Lab 7</h1>
+        <main>
+            <section id = "suggestions">
+                <!-- put java here -->
+                <div class="suggestion">                
+                    <img src = "{{user.thumb_url}}"/>
+                
+                    <div>
+                        <p class ="username">${user.thumb_url}</p>
+                        <p class ="suggestion-text">suggested for you </p>
+                    </div>
+                     <div>
+                        <button>follow</button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </body>
+
+</html>

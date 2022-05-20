@@ -1,0 +1,503 @@
+#main-content {
+    margin-left: 10vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 50%;
+}
+
+#rec-panel{
+    position: fixed;
+    margin-left: 62%;
+    margin-top: 80px;
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+    width: 20%;
+    padding: 3px;
+    min-height: 350px;
+    /* padding: 1%; */
+
+   /* border: solid 1px red;*/
+    min-width: 300px;
+
+}
+
+
+#prof {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* justify-content: space-evenly;*/
+    /* font-family: 'Source Sans Pro';font-size: 22px; */
+    
+    
+   /* border: 1px dotted red;*/
+
+}
+
+.profile_text{
+    margin-left: 20px;
+
+}
+
+.small-profile-pic {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: 0;
+    margin-right:10px;
+}
+
+
+.profile-pic {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+/* #suggestions-title {
+    color: rgb(90, 90, 90);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.suggestion-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.suggestion-item p {
+    margin: 0px;
+}
+
+.follow{
+    margin-top: 17px;
+    margin-left: 10px;
+} */
+
+.img_profile_text {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-items: space-between;
+    
+}
+
+
+
+
+html {
+    scroll-behavior: smooth;
+    background-color: rgb(233, 233, 233);
+}
+
+body{
+    box-sizing: border-box;
+    font-family: 'Comfortaa', cursive;    
+    display: flex;
+    
+    
+
+}
+
+header{
+    top: 0;
+    left: 0;
+    position:fixed;
+    width:100%;
+    height: 70px;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+nav h1{
+    margin-left: 15px;
+    padding:10px;
+    margin-top: 10px;
+    font-size: 25px;
+
+}
+
+nav ul {
+
+    list-style-type: None;
+    display:flex;
+    padding: 10px;
+    margin: 35px;
+    font-size: 15px;
+    margin-top: 10px;
+
+}
+
+li{
+    margin:7px;
+}
+
+#signout{
+    color:rgb(10, 111, 151)
+}
+
+a:link {
+    text-decoration: none;
+    color: rgb(10, 111, 151)
+}
+
+
+.stories{
+
+        background-color: white;
+        display: flex;
+        justify-content: flex-start;
+        top: 100;
+        margin-top:80px;
+        width: 100%;
+        overflow: scroll;
+    
+    }
+
+    .stories::-webkit-scrollbar{
+        display: none;
+    }
+
+    /*overflow -- */
+    
+    .story{
+        display:flex;
+        flex-direction: column;
+        justify-content: center; 
+        align-content: center;
+        padding: 15px;
+        flex-basis: 60px;
+        flex-grow: 0;
+        flex-shrink:0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+
+    }
+
+    #story-text{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+
+
+    
+    .pic{
+        height: 50px;
+        width: 50px;
+        margin: auto;
+        border-radius: 50%;
+        justify-content: center;
+        border: 2px solid rgb(204, 204, 204);
+    }
+    
+
+
+
+/* cards */
+.post-card {
+    /* border: solid 1px green; */
+
+    background-color: white;
+    margin-top: 20px;
+    width: 100%;
+   
+
+}
+
+.post-card #top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px 0px 15px;
+
+}
+
+.post-icons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
+#right-post-icons {
+    padding: 0px 5px 0px 0px;
+}
+
+.post-info {
+    /* border: 1px solid red; */
+
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+
+#comment-section {
+    /* border: 1px solid red; */
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.comment {
+    /* border: 1px dotted black; */
+    font-size: 15px;
+    padding: 4px;
+}
+
+#comment-section p {
+    margin: 0px;
+    padding: 5px;
+    font-size: 13px;
+}
+
+#add-comment-section {
+    
+    border-top: solid .5px gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+button{
+    background-color: transparent;
+    border: none;
+}
+
+#viewbutton{
+    color: lightblue;
+}
+
+#day-ago{
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
+.comment-section-right {
+    margin-right: 10px;
+}
+
+.comment-section-left {
+    /* border: dotted 1px blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    #rec-panel {
+        display: none;
+    }
+
+    #main-content {
+        width: 95%;
+        margin: auto;
+
+    }
+    /* #main-content {
+        margin-left: 10px;
+    }
+
+    body {
+        width: 2%;
+    } */
+}
+
+/* @media screen and (min-width: 768px) {
+    
+}*/ 
+
+
+.suggestion-text {
+    color: #666;
+    font-weight: 600;
+    letter-spacing: 0px;
+}
+
+.suggestions section {
+    display: grid;
+    grid-template-columns: 35px 2fr 1fr;
+    align-items: center;
+    width: 25vw;
+}
+.suggestions section > div {
+    padding: 8px;
+    width: 200px;
+}
+.suggestions section p, .suggestions section a {
+    margin: 0px;
+}
+.suggestions section p {
+    color: #333;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.suggestions section a {
+    font-size: 0.8em;
+}
+.suggestions section p:nth-child(2) {
+    color: #666;
+    font-size: 0.8em;
+    font-weight: 400;
+}
+.suggestions section .pic {
+    min-width: 30px;
+    min-height: 30px;
+    border: solid 1px #dbdbdb;
+    border-radius: 15px;
+}
+aside header {
+    display: flex;
+    align-items: center;
+    width: 25vw;
+}
+
+aside header .pic {
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 33px;
+    border-width: 0px;
+    margin-right: 20px;
+}
+.visuallyhidden {
+    display: none;
+}
+
+#suggestions{
+    width: 350px;
+    background-color:rgb(235, 235, 235);
+}
+
+.suggestion{
+    display: grid;
+    grid-template-columns: 40px auto 70px;
+    margin-bottom: 5px;
+    align-items: flex-end;
+    padding: 5px;
+}
+
+.suggestion p{
+    margin:0;
+    margin-left: 12px;
+    margin-bottom: 5px;
+}
+
+.suggestion img{
+    display: flex;
+    border-radius: 50%;
+    width: 40px;
+
+}
+
+.suggestion .username{
+    font-weight: bold;
+}
+
+.suggestion .suggestion-text{
+    font-size: .9em;
+    color: #555;
+}
+
+
+.suggestion button{
+    padding: 5px 10px;
+    border: 1px;
+    border-radius: 4px;
+    border-color: gray
+}
+.follow{
+    background: transparent
+}
+
+.unfollow{
+    background: white
+
+}
+
+.fas.fa-heart{
+    color:red
+}
+
+input[type="button"] {
+    border: none;
+    outline:none;
+    }
+
+.modal-bg {
+    background: rgba(50, 50, 50, 0.8);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    width: 60vw;
+    height: auto;
+    max-height: 80vh;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.close {
+    align-self: flex-end;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-body {
+    overflow: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    align-content: flex-start;
+    padding: 10px;
+    align-items: center;
+    border-bottom: solid 1px #CCC;
+}
+
+
+.close {
+    align-self: flex-end;
+}
+
+.hidden {
+    display: none !important;
+}

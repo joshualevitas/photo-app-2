@@ -40,7 +40,7 @@ class PostListEndpoint(Resource):
         # print(posts[0].to_dict())
 
 
-        posts_json = [post.to_dict() for post in posts]
+        posts_json = [post.to_dict(user=self.current_user) for post in posts]
         return Response(json.dumps(posts_json), mimetype="application/json", status=200)
        # return Response(json.dumps(['hello world']), mimetype="application/json", status=200)
 
@@ -125,7 +125,7 @@ class PostDetailEndpoint(Resource):
         if post.user_id not in user_ids:
             return Response(json.dumps({'message':"id is invalid"}), status=404)
         
-        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        return Response(json.dumps(post.to_dict(user = self.current_user)), mimetype="application/json", status=200)
 
 def initialize_routes(api):
     api.add_resource(
