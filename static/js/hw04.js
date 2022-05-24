@@ -298,7 +298,7 @@ const post2Modal = post => {
     
     return `  <div class="modal-bg" aria-hidden="false" role="dialog">f
 
-                <section class="modal">
+                <section class="modal" style="height: 450px">
 
                     <div id="modal1">
                     <img class="modalimg" src= "${post.image_url}"/>
@@ -306,9 +306,10 @@ const post2Modal = post => {
 
                     <div id="modal2">
                     <div id="comment-section">
+                    <div id="prof_">
                     <img src="${post.user.thumb_url}" class="profile-pic">
                     <p class="profile_text" style="font-size: 27px"><strong>${post.user.username}</strong></p>
-
+                    </div>
 
                     <div class="comment">
                         <p><strong>${post.user.username}</strong> ${post.caption}</p>
