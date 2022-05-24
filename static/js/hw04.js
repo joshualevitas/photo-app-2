@@ -171,14 +171,46 @@ const bookmarkPost = (elem) => {
   
 };
 
-//------------------COmments ---------------------
+//------------------Comments ---------------------
 const displayComments = post => {
     if (post.comments.length > 1){
         //do nothing
-        return ` <button class = "viewbutton" data-post-id=${post.id} onclick="showModal(event);"> View all ${post.comments.length} Comments</button>
-        <p><strong>${post.comments[0].user.username} </strong>${post.comments[0].text}</p>
-        <p style="color: gray; font-size: 13px;" >${post.comments[0].display_time}
+        let i = post.comments.length - 1; 
+        return ` <button id="view" data-post-id=${post.id} onclick="showModal(event);"> View all ${post.comments.length} Comments</button>
+        <p><strong>${post.comments[i].user.username} </strong>${post.comments[i].text}</p>
+        <p style="color: gray; font-size: 13px;" >${post.comments[i].display_time}
         </p>`;
+    } else if (post.comments.length === 1){
+        let i = post.comments.length - 1;
+        return `<p><strong>${post.comments[i].user.username} </strong>${post.comments[i].text}</p><p style="color: gray; font-size: 13px;" >${post.comments[i].display_time}</p>`
+    } else if (post.comments.length === 0){
+        return '';
+    }
+};
+
+const GetComments = post => {
+    let html = ` `
+    for (let i = 0; i < post.comments.length; i++){
+         html += `
+         <div class = "modalcomments" >
+            <div>
+                <p><strong>${post.comments[i].user.username} </strong>${post.comments[i].text}</p> 
+            </div>
+            <div>
+                <button  class="far fa-heart"> </button>
+            </div>
+         </div>
+        <p style="color: gray; font-size: 13px;" >${post.comments[i].display_time}
+        </p>
+        `
+
+    }
+    return html
+};
+
+const displayallComments = post => {
+    if (post.comments.length > 1){
+        return ` ${GetComments(post)}`;
     } else if (post.comments.length === 1){
         return `<p><strong>${post.comments[0].user.username} </strong>${post.comments[0].text}</p><p style="color: gray; font-size: 13px;" >${post.comments[0].display_time}</p>`
     } else if (post.comments.length === 0){
@@ -186,88 +218,115 @@ const displayComments = post => {
     }
 };
 
-const displayallComments = post => {
-    for(comment in post.comments){
-        return `<p><strong>${comment.username} </strong>${comment.text}</p>
-    <p style="color: gray; font-size: 13px;" >${comment.display_time}
-    </p>`;
-    };
-};
 
+//----------------Posting a Comment-------------
 
+const addComment = (postID, input ,ev) => {
+    console.log("Add Comment...");
+    console.log(ev);
 
-
-
-const toggleComment = ev => {
-    elem = ev.currentTarget;
-    addComment(elem.dataset.postId, document.getElementById)
-}
-
-const addComment = (elem) => {
-    const postId = Number(elem.dataset.postId)
-    console.log('comment on post', elem);
     const postData = {
-        "post_id": postId,
-        "text" : text
+        "post_id": postID,
+        "text": input
     };
+    console.log(postID)
+    console.log(input)
 
-    fetch("/api/comments/", {
-            method: "POST",
+
+    fetch(`/api/comments`, {
+            method: 'POST', 
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(postData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            console.log("add comment to the post")
-            // elem.setAttribute('current_user_like_id', elem.dataset.userId)
-            redrawPost(postId)
-        });
+    })
+    .then(response => {
+        response.json()
+        if (response.status === 201){
+            redrawPost(postID);
+        }
+    })
+};
+           
 
-    };
 
 
 //---------Modal-----
 
 const closeModal = ev => {
+    const modalElement = document.querySelector('.modal-bg');
+    document.querySelector('body').style.overflowY = "auto"
     document.getElementById('rec-panel').style.display='initial';
-   
     console.log('close!');
     document.querySelector('.modal-bg').remove();
+    document.querySelector('#view').focus();
 };
 
 
 const showModal = ev => { 
+    const modalElement = document.querySelector('.modal-bg');
     document.getElementById('rec-panel').style.display='none';
-    const postId = Number(ev.currentTarget.dataset.postId);
+    const postId = Number(ev.currentTarget.dataset.postId);   
     redrawPost(postId, post => {
     const html = post2Modal(post);
     document.querySelector(`#post_${post.id}`).insertAdjacentHTML('beforeend', html);
+    document.querySelector('body').style.overflowY = "hidden"
+    document.querySelector('#close').focus();
     });
 
 };
 
+
+document.addEventListener('focus', function(event) {
+    const modalElement = document.querySelector('.modal-bg');
+    console.log('focus');
+    if (modalElement.getAttribute('aria-hidden') === 'false' && !modalElement.contains(event.target)) {
+        console.log('back to top!');
+        event.stopPropagation();
+        document.querySelector('#close').focus();
+    }
+}, true);
+
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+  })
+
 const post2Modal = post => {
     
-    return `  <div class="modal-bg" aria-hidden="false" role="dialog">
+    return `  <div class="modal-bg" aria-hidden="false" role="dialog">f
 
                 <section class="modal">
 
+                    <div id="modal1">
+                    <img class="modalimg" src= "${post.image_url}"/>
+                    </div>
 
-                    <img src= "${post.image_url}"/>
-                    <p>${post.caption}</p>
-                    <p>
-                   
+                    <div id="modal2">
+                    <div id="comment-section">
+                    <img src="${post.user.thumb_url}" class="profile-pic">
+                    <p class="profile_text" style="font-size: 27px"><strong>${post.user.username}</strong></p>
+
+
+                    <div class="comment">
+                        <p><strong>${post.user.username}</strong> ${post.caption}</p>
+                        <p style="color: gray; font-size: 13px;" >${post.display_time}</p>
+                    </div>
+    
+                    ${displayallComments(post)}
+                </div>
+
+                </div>
+                        
+                
                     
                 </section>
-                <button class="fas fa-xmark" aria-label="Close the modal window" onclick="closeModal(event);"></button>
+                <button id = "close" class="fas fa-xmark" aria-label="Close the modal window" onclick="closeModal(event);"></button>
 
             </div>`
 };
-
-
 
 
 //----------------------Renderbookmark+like-----------
@@ -370,18 +429,21 @@ const post2HTML = post =>{
         <div id="add-comment-section">
             <div class="comment-section-left">
                 <i class="fa-regular fa-face-smile" style="padding-right: 15px"></i>
-                <p style="color: gray; font-size: 15px;">Add a comment...</p>
+                <input type="text" id="comment-${post.id}" placeholder="Add a Comment...">
             </div>
 
-            <div class="comment-section-right">
-                <a href="" style="color: rgb(23, 175, 235); font-size: 15px"">Post</a>
-            </div>
+            
+                <button 
+                    style="color: rgb(23, 175, 235); font-size: 15px;" 
+                    onclick= "addComment(${post.id}, document.getElementById('comment-${post.id}').value, event);">
+                    Post 
+                </button>
+      
 
         </div>
 
 
     </section>`
-    
     
 };
 

@@ -278,10 +278,10 @@ a:link {
 
 }
 
-button{
+ button{
     background-color: transparent;
     border: none;
-}
+} 
 
 #viewbutton{
     color: lightblue;
@@ -308,7 +308,6 @@ button{
 
 
 
-
 @media screen and (max-width: 768px) {
     #rec-panel {
         display: none;
@@ -319,6 +318,8 @@ button{
         margin: auto;
 
     }
+
+        /* #
     /* #main-content {
         margin-left: 10px;
     }
@@ -476,8 +477,9 @@ input[type="button"] {
     background-color: white;
     border-radius: 5px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 20px;
+    overflow: auto;
 }
 
 .close {
@@ -488,9 +490,30 @@ input[type="button"] {
     display: none !important;
 }
 
+#modal2{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .modal-body {
+    display: flex;
+    flex-direction: row;
     overflow: auto;
 }
+
+#modal1{
+    position:sticky;
+    top:0;
+    height: fit-content;
+}
+
+.modalcomments{
+    display: flex;
+    justify-content: space-between;
+
+}
+
 
 .row {
     display: flex;
@@ -506,6 +529,15 @@ input[type="button"] {
 .close {
     align-self: flex-end;
 }
+
+.hidden {
+    display: none !important;
+}
+
+#addcomment{
+    border: None;
+}
+
 
 .hidden {
     display: none !important;
