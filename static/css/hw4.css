@@ -171,6 +171,23 @@ a:link {
         display: none;
     }
 
+    .stories{
+
+        background-color: white;
+        display: flex;
+        justify-content: flex-start;
+        top: 100;
+        margin-top:80px;
+        width: 100%;
+        overflow: scroll;
+    
+    }
+
+    .stories::-webkit-scrollbar{
+        display: none;
+    }
+
+
     /*overflow -- */
     
     .story{
