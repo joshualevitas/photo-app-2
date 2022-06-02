@@ -3,12 +3,14 @@ from flask_restful import Resource
 import json
 from models import db, Comment, Post
 from views import can_view_post, get_authorized_user_ids
+import flask_jwt_extended
 
 class CommentListEndpoint(Resource):
 
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def post(self):
         body = request.get_json()
         print(body)
@@ -49,6 +51,7 @@ class CommentDetailEndpoint(Resource):
     def __init__(self, current_user):
         self.current_user = current_user
   
+    @flask_jwt_extended.jwt_required()
     def delete(self, id):
         # delete "Comment" record where "id"=id
         print(id)
@@ -71,12 +74,12 @@ def initialize_routes(api):
         CommentListEndpoint, 
         '/api/comments', 
         '/api/comments/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
 
     )
     api.add_resource(
         CommentDetailEndpoint, 
         '/api/comments/<int:id>', 
         '/api/comments/<int:id>/',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )

@@ -26,7 +26,6 @@ def login():
             # create a new token with the user id inside
             access_token = flask_jwt_extended.create_access_token(identity=user.id)
             resp = make_response(redirect('/', 302))
-            # resp = make_response('Hello world!')
             flask_jwt_extended.set_access_cookies(resp, access_token)
             return resp
         else:
